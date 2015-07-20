@@ -27,6 +27,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ChestGenHooks;
 
 public class LootSettings {
 
@@ -108,6 +109,10 @@ public class LootSettings {
 	}
 
 	public ItemStack get(Loot type, Random rand){
+		if(rand.nextInt(4) == 0){
+			return ChestGenHooks.getOneItem(ChestGenHooks.DUNGEON_CHEST, rand);
+		}
+		
 		IWeighted<ItemStack> provider = loot.get(type);
 		return provider.get(rand);
 	}
